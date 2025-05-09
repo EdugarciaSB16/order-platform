@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  mongo-auth:
+    image: mongo
+    container_name: mongo-auth
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-auth-data:/data/db
+
+  mongo-orders:
+    image: mongo
+    container_name: mongo-orders
+    ports:
+      - '27018:27017'
+    volumes:
+      - mongo-orders-data:/data/db
+
+  mongo-payments:
+    image: mongo
+    container_name: mongo-payments
+    ports:
+      - '27019:27017'
+    volumes:
+      - mongo-payments-data:/data/db
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - '5672:5672' # protocolo interno
+      - '15672:15672' # panel web
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+
+volumes:
+  mongo-auth-data:
+  mongo-orders-data:
+  mongo-payments-data:
